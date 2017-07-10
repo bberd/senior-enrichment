@@ -3,58 +3,64 @@ import { Route, Switch, Link } from "react-router-dom";
 import Bluebird from "bluebird";
 import axios from "axios";
 
-export default class CampusSingle extends Component {
+export default class StudentSingle extends Component {
   constructor() {
     super();
     this.state = {
-      selectedCampus: {}
+      student: {}
     };
   }
 
   //change to Promise.all
   componentDidMount() {
-    const campusId = this.props.match.params.campusId;
-    let tempCampus = {};
+    const studentId = this.props.match.params.studentId;
 
     axios
-      .get(`api/campuses/${campusId}`)
+      .get(`/api/students/${studentId}`)
       .then(res => res.data)
-      .then(campus => {
-        tempCampus.campus = campus;
-      })
-      .then(_ => {
-        axios
-          .get(`api/students/?campusId=${campusId}`)
-          .then(res => res.data)
-          .then(students => {
-            tempCampus.students = students;
-          })
-          .then(_ => {
-            this.setState({ selectedCampus: tempCampus });
-          });
-      });
+      .then(student =>
+        this.setState({
+          student
+        })
+      );
   }
 
   render() {
-    const selectedCampus = this.state.selectedCampus;
+    const student = this.state.student;
 
     return (
-      <div>
-        <h2>
-          {selectedCampus.campus && selectedCampus.campus.name}
-        </h2>
-        <h3>Student</h3>
-        {selectedCampus.students &&
-          selectedCampus.students.map(student => {
-            return (
-              <h4 key={student.id}>
-                <Link to={`/students/${student.id}`}>
-                  {student.name}
+      <table className="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Campus</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <th>
+              {student.id}
+            </th>
+            <th>
+              {student.name}
+            </th>
+            <th>
+              {student.email}
+            </th>
+            <th>
+              {student.campus ?
+                <Link to={`/campuses/${student.campus.id}`}>
+                  {student.campus.name}
                 </Link>
-              </h4>
-            );
-          })}
-      </div>
+                : null
+              }
+            </th>
+          </tr>
+        </tbody>
+      </table>
     );
   }
 }

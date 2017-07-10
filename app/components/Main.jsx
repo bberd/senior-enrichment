@@ -29,7 +29,7 @@ export default class Main extends Component {
               <Route exact path={`/campuses`} render={() => <Campuses />} />
               <Route path={`/campuses/:campusId`} component={CampusSingle} />
               <Route exact path={`/students`} render={() => <Students />} />
-              <Route path={`/students/:studentId`} render={() => <StudentSingle />} />
+              <Route path={`/students/:studentId`} component={StudentSingle} />} />
             </Switch>
           </div>
         </div>
@@ -37,3 +37,5 @@ export default class Main extends Component {
     );
   }
 }
+
+//what is the diff between render and component in Route?

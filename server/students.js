@@ -17,7 +17,6 @@ router.param("studentId", (req, res, next, id) => {
 });
 
 router.get("/", (req, res, next) => {
-  console.log('hello', req.query)
   if (req.query.campusId) {
     Student.findAll({
       where: {
@@ -43,7 +42,19 @@ router.get("/", (req, res, next) => {
 });
 
 router.get("/:studentId", (req, res, next) => {
-  res.json(req.student);
+  Student.findOne({
+    where: {
+      id: req.params.studentId
+    },
+    include: {
+        model: Campus,
+        as: "campus"
+      }
+  })
+  .then(student => {
+    console.log(student)
+    res.json(student);
+    });
 });
 
 router.post("/", (req, res, next) => {
