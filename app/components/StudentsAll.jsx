@@ -28,6 +28,7 @@ export default class StudentsAll extends Component {
             <th>Name</th>
             <th>Email</th>
             <th>Campus</th>
+            <th>Edit</th>
           </tr>
         </thead>
 
@@ -44,7 +45,18 @@ export default class StudentsAll extends Component {
                 {student.email}
               </th>
               <th>
-                {student.campus.name}
+                <Link
+                  to={`/campuses/${student.campusId}`}
+                >
+                  {student.campus.name}
+                </Link>
+              </th>
+              <th>
+                <Link
+                  to={`/students/edit/${student.id}`}
+                >
+                  Edit
+                </Link>
               </th>
             </tr>
           )}

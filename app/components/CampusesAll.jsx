@@ -21,14 +21,22 @@ export default class CampusesAll extends Component {
 
   render() {
     return (
-      <div>
-        <div>
-          {this.state.campuses.map(campus =>
-            <Link key={campus.id} to={`/campuses/${campus.id}`}>
-              <img src={campus.imageUrl} />
-              {campus.name}
-            </Link>
-          )}
+      <div className="row">
+        <div className="col-xs-18 col-sm-6 col-md-3">
+          <div class="thumbnail">
+            {this.state.campuses.map(campus =>
+              <Link
+                // className="thumbnail"
+                key={campus.id}
+                to={`/campuses/${campus.id}`}
+              >
+                <div className="panel-heading">
+                  {campus.name}
+                </div>
+                <img src={campus.imageUrl} />
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     );

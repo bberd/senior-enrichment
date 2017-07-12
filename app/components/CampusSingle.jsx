@@ -52,6 +52,7 @@ export default class CampusSingle extends Component {
                   {student.name}
                 </Link>
               </h4>
+
             );
           })}
       </div>
