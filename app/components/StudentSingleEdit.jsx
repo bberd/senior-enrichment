@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Route, Switch, Link, Redirect } from "react-router-dom";
 import axios from "axios";
 
+/* -----------------    COMPONENT     ------------------ */
+
 export default class StudentSingle extends Component {
   constructor() {
     super();
@@ -84,3 +86,5 @@ export default class StudentSingle extends Component {
     );
   }
 }
+
+/* -----------------    CONTAINER     ------------------ */

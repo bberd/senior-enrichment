@@ -1,11 +1,17 @@
-import { combineReducers } from 'redux'
+//converted
+import { combineReducers } from 'redux';
+import { studentsReducer } from './students';
+import { campusesReducer } from './campuses';
 
-const initialState = {}
+export default combineReducers({ studentsReducer, campusesReducer });
 
-const rootReducer = function(state = initialState, action) {
-  switch(action.type) {
-    default: return state
-  }
-};
+//what is the purpose of this?
+// const initialState = {}
 
-export default rootReducer
+// const rootReducer = function(state = initialState, action) {
+//   switch(action.type) {
+//     default: return state
+//   }
+// };
+
+// export default rootReducer

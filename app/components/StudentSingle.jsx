@@ -1,13 +1,15 @@
-import React, { Component } from "react";
-import { Route, Switch, Link } from "react-router-dom";
-import Bluebird from "bluebird";
-import axios from "axios";
+import React, { Component } from 'react';
+import { Route, Switch, Link } from 'react-router-dom';
+import Bluebird from 'bluebird';
+import axios from 'axios';
+
+/* -----------------    COMPONENT     ------------------ */
 
 export default class StudentSingle extends Component {
   constructor() {
     super();
     this.state = {
-      student: {}
+      student: {},
     };
   }
 
@@ -15,14 +17,12 @@ export default class StudentSingle extends Component {
   componentDidMount() {
     const studentId = this.props.match.params.studentId;
 
-    axios
-      .get(`/api/students/${studentId}`)
-      .then(res => res.data)
-      .then(student =>
-        this.setState({
-          student
-        })
-      );
+    //moved over to a thunk
+    axios.get(`/api/students/${studentId}`).then(res => res.data).then(student =>
+      this.setState({
+        student,
+      }),
+    );
   }
 
   render() {
@@ -51,12 +51,11 @@ export default class StudentSingle extends Component {
               {student.email}
             </th>
             <th>
-              {student.campus ?
-                <Link to={`/campuses/${student.campus.id}`}>
-                  {student.campus.name}
-                </Link>
-                : null
-              }
+              {student.campus
+                ? <Link to={`/campuses/${student.campus.id}`}>
+                    {student.campus.name}
+                  </Link>
+                : null}
             </th>
           </tr>
         </tbody>
@@ -64,3 +63,5 @@ export default class StudentSingle extends Component {
     );
   }
 }
+
+/* -----------------    CONTAINER     ------------------ */

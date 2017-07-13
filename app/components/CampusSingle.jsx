@@ -3,6 +3,8 @@ import { Route, Switch, Link } from "react-router-dom";
 import Bluebird from "bluebird";
 import axios from "axios";
 
+/* -----------------    COMPONENT     ------------------ */
+
 export default class CampusSingle extends Component {
   constructor() {
     super();
@@ -52,10 +54,11 @@ export default class CampusSingle extends Component {
                   {student.name}
                 </Link>
               </h4>
-
             );
           })}
       </div>
     );
   }
 }
+
+/* -----------------    CONTAINER     ------------------ */
