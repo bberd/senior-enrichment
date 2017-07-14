@@ -1,19 +1,27 @@
-import React, { Component } from "react";
-import { Route, Switch, Link } from "react-router-dom";
-import Bluebird from "bluebird";
-import axios from "axios";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 /* -----------------    COMPONENT     ------------------ */
 
-export default class CampusSingle extends Component {
+export class CampusSingle extends Component {
   constructor() {
     super();
     this.state = {
       selectedCampus: {}
     };
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
-  //change to Promise.all
+  handleDelete(event) {
+    const id = event.target.id;
+    event.preventDefault();
+    event.stopPropagation();
+    this.props.removeCampus(id);
+    this.props.getAllCampuses();
+    this.props.history.push('/campuses');
+  }
+
   componentDidMount() {
     const campusId = this.props.match.params.campusId;
     let tempCampus = {};
@@ -44,6 +52,13 @@ export default class CampusSingle extends Component {
       <div>
         <h2>
           {selectedCampus.campus && selectedCampus.campus.name}
+          <span> </span>
+          <button
+            className="btn btn-sm btn-danger"
+            id={selectedCampus.campus && selectedCampus.campus.id}
+            onClick={this.handleDelete}>
+            Delete
+          </button>
         </h2>
         <h3>Student</h3>
         {selectedCampus.students &&
@@ -62,3 +77,16 @@ export default class CampusSingle extends Component {
 }
 
 /* -----------------    CONTAINER     ------------------ */
+import { connect } from 'react-redux';
+import { getAllCampuses, removeCampus } from '../reducers/campuses';
+
+const mapStateToProps = state => {
+  return { allCampuses: state.campusesReducer.allCampuses };
+};
+
+const mapDispatchToProps = {
+  getAllCampuses,
+  removeCampus
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CampusSingle);

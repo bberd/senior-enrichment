@@ -36,11 +36,10 @@ export default class StudentSingle extends Component {
         name: this.state.student.name,
         email: this.state.student.email
       }) //missing campusid ->
-      .then(res => res.data);
-    //this.props.history.push('/students');
-    //.then(_student => <Redirect to='/students/' />
-    // )
+      .then(res => res.data)
+      .then(_ => this.props.history.push('/students'));
   }
+
   componentDidMount() {
     console.log(this.props.match.params.studentId);
     const studentId = +this.props.match.params.studentId;

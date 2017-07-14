@@ -9,7 +9,7 @@ export default class StudentSingle extends Component {
   constructor() {
     super();
     this.state = {
-      student: {},
+      student: {}
     };
   }
 
@@ -20,8 +20,8 @@ export default class StudentSingle extends Component {
     //moved over to a thunk
     axios.get(`/api/students/${studentId}`).then(res => res.data).then(student =>
       this.setState({
-        student,
-      }),
+        student
+      })
     );
   }
 

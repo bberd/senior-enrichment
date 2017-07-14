@@ -2,8 +2,10 @@ import axios from 'axios';
 
 /* -----------------    ACTIONS     ------------------ */
 
-export const GET_CAMPUSES = 'GET_CAMPUSES';
-export const GET_CAMPUS = 'GET_CAMPUS';
+const GET_CAMPUSES = 'GET_CAMPUSES';
+const GET_CAMPUS = 'GET_CAMPUS';
+const ADD_CAMPUS = 'ADD_CAMPUS';
+export const REMOVE = 'REMOVE_CAMPUS';
 
 // /* ------------   ACTION CREATORS     ------------------ */
 
@@ -17,22 +19,44 @@ export const selectCampus = campus => ({
   chosenCampus: campus
 });
 
+const addCampus = campus => ({
+  type: ADD_CAMPUS,
+  newCampus: campus
+});
+
+const remove = id => ({ type: REMOVE, id });
+
 // /* ------------       REDUCER     ------------------ */
 
 const initialState = {
   allCampuses: [],
-  chosenCampus: {}
+  chosenCampus: {},
+  newCampus: {}
 };
 
 export const campusesReducer = (state = initialState, action) => {
+  let newState = Object.assign({}, state);
   switch (action.type) {
     case GET_CAMPUSES:
-      return Object.assign({}, state, { allCampuses: action.allCampuses });
+      newState.allCampuses = action.allCampuses;
+      break;
+    // return Object.assign({}, state, { allCampuses: action.allCampuses });
     case GET_CAMPUS:
-      return Object.assign({}, state, { chosenCampus: action.chosenCampus });
+      newState.chosenCampus = action.chosenCampus;
+      break;
+    // return Object.assign({}, state, { chosenCampus: action.chosenCampus });
+    case ADD_CAMPUS:
+      newState.allCampuses = [...state.allCampuses, action.campus];
+      break;
+    // return Object.assign({}, state, { newCampus: action.newCampus });
+    case REMOVE:
+      newState.allCampuses = state.allCampuses.filter(campus => campus.id !== action.id);
+      break;
+    //return state.allCampuses.filter(campus => campus.id !== action.id);
     default:
       return state;
   }
+  return newState;
 };
 
 // /* ------------   THUNK CREATORS     ------------------ */
@@ -61,26 +85,23 @@ export const getCampus = campusId => {
   };
 };
 
-// export const fetchUsers = () => dispatch => {
-//   axios.get('/api/users')
-//        .then(res => dispatch(init(res.data)));
-// };
+export const createNewCampus = campus => {
+  return function(dispatch) {
+    axios
+      .post('/api/campuses', campus)
+      .then(res => res.data)
+      .then(newCampus => {
+        dispatch(addCampus(newCampus));
+      })
+      .then(_ => this.props.history.push('/campuses')) //I know this doesn't make sense, but it seems to make it load the campuses page better
+      .catch(console.error.bind(console));
+  };
+};
 
-// // optimistic
-// export const removeUser = id => dispatch => {
-//   dispatch(remove(id));
-//   axios.delete(`/api/users/${id}`)
-//        .catch(err => console.error(`Removing user: ${id} unsuccesful`, err));
-// };
-
-// export const addUser = user => dispatch => {
-//   axios.post('/api/users', user)
-//        .then(res => dispatch(create(res.data)))
-//        .catch(err => console.error(`Creating user: ${user} unsuccesful`, err));
-// };
-
-// export const updateUser = (id, user) => dispatch => {
-//   axios.put(`/api/users/${id}`, user)
-//        .then(res => dispatch(update(res.data)))
-//        .catch(err => console.error(`Updating user: ${user} unsuccesful`, err));
-// };
+export const removeCampus = id => dispatch => {
+  dispatch(remove(id));
+  axios
+    .delete(`/api/campuses/${id}`)
+    .then(_ => this.props.history.push('/campuses')) //this too
+    .catch(console.error.bind(console));
+};

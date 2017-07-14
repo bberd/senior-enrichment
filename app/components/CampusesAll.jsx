@@ -24,6 +24,7 @@ export class CampusesAll extends Component {
               </div>
             </div>
           )}
+        <Link to={`/campuses/new`}>Add New Campus </Link>
       </div>
     );
   }

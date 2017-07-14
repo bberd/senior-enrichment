@@ -8,8 +8,8 @@ class addNewStudent extends Component {
     this.state = {
       name: '',
       email: '',
-      campus: '', //make this a select/option
-      campusId: 0
+      campusId: '1' //make this a select/option
+      // campusId: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,16 +23,17 @@ class addNewStudent extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-    this.props.allCampuses.forEach(campus => {
-      this.setState({
-        campusId: campus.id
-      });
-    });
+    console.log('changename', event.target.name, 'value', event.target.value, 'state', this.state);
+    // this.props.allCampuses.forEach(campus => {
+    //   this.setState({
+    //     campusId: campus.id
+    //   });
+    // });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-
+    console.log('submit', event.target);
     this.props.createNewStudent(this.state);
     this.props.history.push('/students');
 
@@ -42,10 +43,9 @@ class addNewStudent extends Component {
   render() {
     return (
       <div>
-        <div className="col-sm-2" />
-        <div className="col-sm-8">
-          <h2>Create a new Student</h2>
-          <form onSubmit={this.handleSubmit}>
+        <h2>Create a new Student</h2>
+        <form className="student-edit-form" onSubmit={this.handleSubmit}>
+          <div className="form-group">
             <label>
               Name:
               <input
@@ -56,6 +56,8 @@ class addNewStudent extends Component {
                 onChange={this.handleChange}
               />
             </label>
+          </div>
+          <div className="form-group">
             <label>
               Email:
               <input
@@ -66,28 +68,30 @@ class addNewStudent extends Component {
                 onChange={this.handleChange}
               />
             </label>
+          </div>
+          <div className="form-group">
             <label>
               Campus:
               <select
                 className="form-control"
-                name="campus"
+                name="campusId"
                 value={this.state.campus}
                 onChange={this.handleChange}>
                 {this.props.allCampuses &&
                   this.props.allCampuses.map(campus => {
                     return (
-                      <option key={campus.id}>
+                      <option key={campus.id} value={campus.id}>
                         {campus.name}
                       </option>
                     );
                   })}
               </select>
             </label>
-            {this.props && console.log(this.props)}
+          </div>
+          {this.props && console.log(this.props)}
 
-            <input className="btn btn-success" type="submit" />
-          </form>
-        </div>
+          <input className="btn btn-success" type="submit" />
+        </form>
       </div>
     );
   }
@@ -107,16 +111,3 @@ const mapStateToProps = state => {
 const mapDispatch = { getAllCampuses, createNewStudent };
 
 export default connect(mapStateToProps, mapDispatch)(addNewStudent);
-
-// const mapDispatch = (dispatch, ownProps) => {
-//   return {
-//     debouncedUpdateStory: _.debounce((...args) => {
-//       dispatch(updateStory(...args));
-//     }, 500),
-
-//     fetchStoryData: () => {
-//       const storyId = ownProps.match.params.id;
-//       dispatch(fetchStory(storyId));
-//     }
-//   };
-// };

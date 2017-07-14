@@ -87,8 +87,8 @@ router.put('/:studentId', (req, res, next) => {
 router.delete('/:studentId', (req, res, next) => {
   req.student
     .destroy()
-    .then(() => {
-      res.status(204).end();
+    .then(deletedStudent => {
+      res.status(204).json(deletedStudent);
     })
     .catch(next);
 });

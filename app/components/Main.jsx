@@ -9,6 +9,7 @@ import CampusSingle from './CampusSingle.jsx';
 import StudentSingle from './StudentSingle.jsx';
 import StudentSingleEdit from './StudentSingleEdit.jsx';
 import addNewStudent from './addNewStudent';
+import addNewCampus from './addNewCampus';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -39,10 +40,11 @@ export default class Main extends Component {
             <Switch>
               <Route path={'/students/new'} component={addNewStudent} />
               <Route path={`/students/edit/:studentId`} component={StudentSingleEdit} />} />
+              <Route exact path={`/campuses/new`} component={addNewCampus} />
               <Route path={`/campuses/:campusId`} component={CampusSingle} />
-              <Route path={`/campuses`} render={() => <Campuses />} />
+              <Route path={`/campuses`} component={Campuses} />
               <Route exact path={`/students/:studentId`} component={StudentSingle} />}
-              <Route path={`/students`} render={() => <Students />} />
+              <Route path={`/students/`} component={Students} />
               />
               <Route component={Home} />
             </Switch>

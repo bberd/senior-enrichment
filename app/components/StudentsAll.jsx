@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Router, Route, Switch, Link } from 'react-router-dom';
+import axios from 'axios';
 
 /* -----------------    COMPONENT     ------------------ */
 
 class StudentsAll extends Component {
   componentDidMount() {
     this.props.getAllStudents();
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete(event) {
+    const id = event.target.id;
+    event.preventDefault();
+    event.stopPropagation();
+    this.props.removeStudent(id);
+    this.props.getAllStudents();
+    this.props.history.push('/students');
   }
 
   render() {
@@ -18,7 +29,7 @@ class StudentsAll extends Component {
               <th>Name</th>
               <th>Email</th>
               <th>Campus</th>
-              <th>Edit</th>
+              <th />
             </tr>
           </thead>
 
@@ -30,7 +41,9 @@ class StudentsAll extends Component {
                     {student.id}
                   </th>
                   <th>
-                    {student.name}
+                    <Link to={`/students/${student.id}`}>
+                      {student.name}
+                    </Link>
                   </th>
                   <th>
                     {student.email}
@@ -41,7 +54,17 @@ class StudentsAll extends Component {
                     </Link>
                   </th>
                   <th>
-                    <Link to={`/students/edit/${student.id}`}>Edit</Link>
+                    <Link to={`/students/edit/${student.id}`}>
+                      <button className="btn btn-sm btn-warning"> Edit</button>
+                    </Link>
+                  </th>
+                  <th>
+                    <button
+                      className="btn btn-sm btn-danger"
+                      id={student.id}
+                      onClick={this.handleDelete}>
+                      Delete
+                    </button>
                   </th>
                 </tr>
               )}
@@ -56,18 +79,15 @@ class StudentsAll extends Component {
 
 /* -----------------    CONTAINER     ------------------ */
 import { connect } from 'react-redux';
-import { getAllStudents } from '../reducers/students';
+import { getAllStudents, removeStudent } from '../reducers/students';
 
 const mapStateToProps = state => {
   return { allStudents: state.studentsReducer.allStudents };
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getAllStudents: () => {
-      dispatch(getAllStudents());
-    }
-  };
+const mapDispatchToProps = {
+  getAllStudents,
+  removeStudent
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(StudentsAll);
