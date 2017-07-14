@@ -21,7 +21,8 @@ router.get('/', (req, res, next) => {
     Student.findAll({
       where: {
         campusId: req.query.campusId
-      }
+      },
+      order: [['name', 'ASC']]
     })
       .then(students => {
         res.json(students);
@@ -32,7 +33,8 @@ router.get('/', (req, res, next) => {
       include: {
         model: Campus,
         as: 'campus'
-      }
+      },
+      order: [['name', 'ASC']]
     })
       .then(students => {
         res.json(students);

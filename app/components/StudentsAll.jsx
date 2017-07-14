@@ -48,7 +48,7 @@ class StudentsAll extends Component {
           </tbody>
         </table>
 
-        <Link to={'/students/add'}>Add New Student</Link>
+        <Link to={'/students/new'}>Add New Student</Link>
       </div>
     );
   }

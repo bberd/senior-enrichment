@@ -22,9 +22,9 @@ export default class Main extends Component {
     return (
       <Router>
         <div className="container">
-          <div className="text-center">
+          <div className="nav-bar text-center">
             <Link to={`/campuses`}>
-              <button type="button" className="btn btn-default btn-group-lg">
+              <button type="button" className="btn btn-default btn-group-lg nav-btn">
                 Campuses
               </button>
             </Link>
@@ -37,7 +37,7 @@ export default class Main extends Component {
 
           <div className="row">
             <Switch>
-              <Route path={'/students/add'} component={addNewStudent} />
+              <Route path={'/students/new'} component={addNewStudent} />
               <Route path={`/students/edit/:studentId`} component={StudentSingleEdit} />} />
               <Route path={`/campuses/:campusId`} component={CampusSingle} />
               <Route path={`/campuses`} render={() => <Campuses />} />

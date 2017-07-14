@@ -43,7 +43,6 @@ export const getAllCampuses = () => {
       .get(`/api/campuses`)
       .then(res => res.data)
       .then(campuses => {
-        console.log(campuses);
         dispatch(getCampuses(campuses));
       })
       .catch(console.error);

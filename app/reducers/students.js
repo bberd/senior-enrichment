@@ -71,7 +71,6 @@ export const getAllStudents = () => {
       .get(`/api/students`)
       .then(res => res.data)
       .then(students => {
-        console.log(students);
         dispatch(getStudents(students));
       })
       .catch(console.error);

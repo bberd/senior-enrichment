@@ -11,19 +11,19 @@ export class CampusesAll extends Component {
   render() {
     return (
       <div className="row">
-        <div className="col-xs-18 col-sm-6 col-md-3">
-          <div className="thumbnail">
-            {this.props.allCampuses &&
-              this.props.allCampuses.map(campus =>
+        {this.props.allCampuses &&
+          this.props.allCampuses.map(campus =>
+            <div className="col-xs-18 col-sm-6 col-md-4">
+              <div className="thumbnail">
                 <Link key={campus.id} to={`/campuses/${campus.id}`}>
-                  <div className="panel-heading">
+                  <h5 className="panel-heading">
                     {campus.name}
-                  </div>
+                  </h5>
                   <img src={campus.imageUrl} />
                 </Link>
-              )}
-          </div>
-        </div>
+              </div>
+            </div>
+          )}
       </div>
     );
   }

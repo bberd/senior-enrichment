@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import { Route, Switch, Link, Redirect } from "react-router-dom";
-import axios from "axios";
+import React, { Component } from 'react';
+import { Route, Switch, Link, Redirect } from 'react-router-dom';
+import axios from 'axios';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -37,21 +37,19 @@ export default class StudentSingle extends Component {
         email: this.state.student.email
       }) //missing campusid ->
       .then(res => res.data);
+    //this.props.history.push('/students');
     //.then(_student => <Redirect to='/students/' />
     // )
   }
   componentDidMount() {
     console.log(this.props.match.params.studentId);
     const studentId = +this.props.match.params.studentId;
-    axios
-      .get(`/api/students/${studentId}`)
-      .then(res => res.data)
-      .then(student => {
-        console.log(student);
-        this.setState({
-          student
-        });
+    axios.get(`/api/students/${studentId}`).then(res => res.data).then(student => {
+      console.log(student);
+      this.setState({
+        student
       });
+    });
   }
 
   render() {
@@ -59,28 +57,41 @@ export default class StudentSingle extends Component {
 
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <label>ID</label>
-          <input type="text" disabled value={student.id} />
-          <label>Name</label>
-          <input
-            type="text"
-            value={this.state.student.name}
-            onChange={this.handleChangeName}
-          />
-          <label>Email</label>
-          <input
-            type="text"
-            value={this.state.student.email}
-            onChange={this.handleChangeEmail}
-          />
-          <label>Campus</label>
-          <input
-            type="text"
-            value={this.state.student.campus && this.state.student.campus.name}
-            onChange={this.handleChangeCampus}
-          />
-          <button type="submit">Update Student</button>
+        <form className="student-edit-form" onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <label for="id">ID</label>
+            <input id="id" type="text" disabled value={student.id} />
+          </div>
+          <div className="form-group">
+            <label for="name">Name</label>
+            <input
+              id="name"
+              type="text"
+              value={this.state.student.name}
+              onChange={this.handleChangeName}
+            />
+          </div>
+          <div className="form-group">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              type="text"
+              value={this.state.student.email}
+              onChange={this.handleChangeEmail}
+            />
+          </div>
+          <div className="form-group">
+            <label for="campus">Campus</label>
+            <input
+              id="campus"
+              type="text"
+              value={this.state.student.campus && this.state.student.campus.name}
+              onChange={this.handleChangeCampus}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary">
+            Update Student
+          </button>
         </form>
       </div>
     );

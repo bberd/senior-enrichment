@@ -8,7 +8,8 @@ class addNewStudent extends Component {
     this.state = {
       name: '',
       email: '',
-      campus: '' //make this a select/option
+      campus: '', //make this a select/option
+      campusId: 0
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,6 +23,11 @@ class addNewStudent extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+    this.props.allCampuses.forEach(campus => {
+      this.setState({
+        campusId: campus.id
+      });
+    });
   }
 
   handleSubmit(event) {
@@ -34,7 +40,6 @@ class addNewStudent extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <div className="col-sm-2" />
@@ -63,13 +68,22 @@ class addNewStudent extends Component {
             </label>
             <label>
               Campus:
-              <input
+              <select
                 className="form-control"
                 name="campus"
                 value={this.state.campus}
-                onChange={this.handleChange}
-              />
+                onChange={this.handleChange}>
+                {this.props.allCampuses &&
+                  this.props.allCampuses.map(campus => {
+                    return (
+                      <option key={campus.id}>
+                        {campus.name}
+                      </option>
+                    );
+                  })}
+              </select>
             </label>
+            {this.props && console.log(this.props)}
 
             <input className="btn btn-success" type="submit" />
           </form>
@@ -82,13 +96,27 @@ class addNewStudent extends Component {
 /* -----------------    CONTAINER     ------------------ */
 import { connect } from 'react-redux';
 import { createNewStudent } from '../reducers/students';
+import { getAllCampuses } from '../reducers/campuses';
 
 const mapStateToProps = state => {
-  return { allCampuses: state.campusesReducer.allCampuses };
+  return {
+    allCampuses: state.campusesReducer.allCampuses
+  };
 };
 
-const mapDispatch = {
-  createNewStudent
-};
+const mapDispatch = { getAllCampuses, createNewStudent };
 
 export default connect(mapStateToProps, mapDispatch)(addNewStudent);
+
+// const mapDispatch = (dispatch, ownProps) => {
+//   return {
+//     debouncedUpdateStory: _.debounce((...args) => {
+//       dispatch(updateStory(...args));
+//     }, 500),
+
+//     fetchStoryData: () => {
+//       const storyId = ownProps.match.params.id;
+//       dispatch(fetchStory(storyId));
+//     }
+//   };
+// };

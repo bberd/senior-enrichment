@@ -7,11 +7,66 @@ body {
   background: 'https://upload.wikimedia.org/wikipedia/commons/c/c7/Seal_of_the_Federal_Bureau_of_Prisons.svg';
 }
 
+.nav-btn {
+  margin: 30px 20px;
+}
+
 .row #logo {
   position: absolute;
   margin: auto;
   left: 0;
   right: 0;
+}
+
+thumbnail {
+  position: relative;
+  padding: 0px;
+  margin-bottom: 20px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.thumbnail a h5 {
+  text-align: center;
+  text-decoration: none;
+  color: black;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.thumbnail:hover {
+  background: lightskyblue;
+  opacity: .5;
+}
+
+.thumbnail a:hover {
+  text-decoration: none;
+}
+
+.thumbnail a img {
+  width: 500;
+  height: 300;
+}
+
+form.student-edit-form {
+  width: 50%;
+  display: inline-block;
+  position: absolute;
+  left: 25%;
+  margin-top: 20px;
+}
+
+form.student-edit-form label {
+  width: 25%;
+  color: white;
+}
+
+form.student-edit-form input {
+  width: 75%;
+}
+
+form.student-edit-form button {
+  margin-top: 20px;
 }
 
 /*old styles*/
