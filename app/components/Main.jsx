@@ -8,6 +8,7 @@ import Home from './Home.jsx';
 import CampusSingle from './CampusSingle.jsx';
 import StudentSingle from './StudentSingle.jsx';
 import StudentSingleEdit from './StudentSingleEdit.jsx';
+import addNewStudent from './addNewStudent';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -22,12 +23,12 @@ export default class Main extends Component {
       <Router>
         <div className="container">
           <div className="text-center">
-            <Link to={`/campuses/`}>
+            <Link to={`/campuses`}>
               <button type="button" className="btn btn-default btn-group-lg">
                 Campuses
               </button>
             </Link>
-            <Link to={`/students/`}>
+            <Link to={`/students`}>
               <button type="button" className="btn btn-default btn-group-lg">
                 Students
               </button>
@@ -36,10 +37,11 @@ export default class Main extends Component {
 
           <div className="row">
             <Switch>
+              <Route path={'/students/add'} component={addNewStudent} />
               <Route path={`/students/edit/:studentId`} component={StudentSingleEdit} />} />
               <Route path={`/campuses/:campusId`} component={CampusSingle} />
               <Route path={`/campuses`} render={() => <Campuses />} />
-              <Route path={`/students/:studentId`} component={StudentSingle} />}
+              <Route exact path={`/students/:studentId`} component={StudentSingle} />}
               <Route path={`/students`} render={() => <Students />} />
               />
               <Route component={Home} />

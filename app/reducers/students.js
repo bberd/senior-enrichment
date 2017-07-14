@@ -4,40 +4,64 @@ import axios from 'axios';
 
 export const GET_STUDENTS = 'GET_STUDENTS';
 export const GET_STUDENT = 'GET_STUDENT';
+const ADD_STUDENT = 'ADD_STUDENT';
 
 // /* ------------   ACTION CREATORS     ------------------ */
 
-export const getStudents = students => ({
+const getStudents = students => ({
   type: GET_STUDENTS,
   allStudents: students
 });
 
-export const selectStudent = student => ({
+const selectStudent = student => ({
   type: GET_STUDENT,
   chosenStudents: student
+});
+
+const addStudent = student => ({
+  type: ADD_STUDENT,
+  newStudent: student
 });
 
 // /* ------------       REDUCER     ------------------ */
 
 const initialState = {
   allStudents: [],
-  chosenStudent: {}
+  chosenStudent: {},
+  newStudent: {}
 };
 
 export const studentsReducer = (state = initialState, action) => {
-  const newObject = Object.assign({}, state);
   switch (action.type) {
     case GET_STUDENTS:
-      newObject.allStudents = action.allStudents;
-      break;
+      return Object.assign({}, state, { allStudents: action.allStudents });
     case GET_STUDENT:
-      newObject.chosenStudent = action.chosenStudent;
-      break;
+      return Object.assign({}, state, { chosenStudent: action.chosenStudent });
+    case ADD_STUDENT:
+      return Object.assign({}, state, { newStudent: action.newStudent });
     default:
       return state;
   }
-  return newObject;
 };
+
+// case ADD_TACO:
+//       return Object.assign({}, state, {student: [...state.student, action.student]})
+
+// export const signup = credentials => dispatch => {
+//   return axios.post('/api/auth/me', credentials)
+//   .then(resToData)
+//   .then(user => {
+//     dispatch(createUser(user)); // so new user appears in our master list
+//     dispatch(set(user)); // set current user
+//     return user;
+//   });
+// };
+
+// export const signupAndGoToUser = credentials => dispatch => {
+//   dispatch(signup(credentials))
+//   .then(user => history.push(`/users/${user.id}`))
+//   .catch(err => console.error('Problem signing up:', err));
+// };
 
 // /* ------------   THUNK CREATORS     ------------------ */
 
@@ -65,6 +89,32 @@ export const getStudent = studentId => {
       .catch(console.error);
   };
 };
+
+export const createNewStudent = student => {
+  return function(dispatch) {
+    axios
+      .post('/api/students', student)
+      .then(res => res.data)
+      .then(newStudent => {
+        dispatch(addStudent(newStudent));
+      })
+      .catch(console.error.bind(console));
+  };
+};
+
+// export const postChannel = channel, history {
+//   return function thunk(dispatch) {
+//     return axios
+//       .post("/api/channels", channel)
+//       .then(res => res.data)
+//       .then(newChannel => {
+//         const action = getChannel(newChannel);
+//         dispatch(action);
+//         socket.emit("new-channel", newChannel);
+//         history.push(`/channels/${newChannel.id}`);
+//       });
+//   };
+// }
 
 // export const fetchUsers = () => dispatch => {
 //   axios.get('/api/users')

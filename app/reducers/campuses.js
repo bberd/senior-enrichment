@@ -25,18 +25,14 @@ const initialState = {
 };
 
 export const campusesReducer = (state = initialState, action) => {
-  const newObject = Object.assign({}, state);
   switch (action.type) {
     case GET_CAMPUSES:
-      newObject.allCampuses = action.allCampuses;
-      break;
+      return Object.assign({}, state, { allCampuses: action.allCampuses });
     case GET_CAMPUS:
-      newObject.chosenCampus = action.chosenCampus;
-      break;
+      return Object.assign({}, state, { chosenCampus: action.chosenCampus });
     default:
       return state;
   }
-  return newObject;
 };
 
 // /* ------------   THUNK CREATORS     ------------------ */
