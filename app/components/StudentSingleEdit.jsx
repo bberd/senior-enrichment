@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 /* -----------------    COMPONENT     ------------------ */
@@ -28,7 +27,6 @@ export default class StudentSingle extends Component {
 
   handleSubmit(event) {
     const studentId = +this.props.match.params.studentId;
-    console.log(studentId);
     event.preventDefault();
     axios
       .put(`/api/students/${studentId}`, {
@@ -41,10 +39,8 @@ export default class StudentSingle extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match.params.studentId);
     const studentId = +this.props.match.params.studentId;
     axios.get(`/api/students/${studentId}`).then(res => res.data).then(student => {
-      console.log(student);
       this.setState({
         student
       });
@@ -56,6 +52,8 @@ export default class StudentSingle extends Component {
 
     return (
       <div>
+        <h2>Update an Inmate</h2>
+
         <form className="student-edit-form" onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label for="id">ID</label>
@@ -88,13 +86,11 @@ export default class StudentSingle extends Component {
               onChange={this.handleChangeCampus}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Update Student
+          <button type="submit" className="btn btn-warning">
+            Update Inmate
           </button>
         </form>
       </div>
     );
   }
 }
-
-/* -----------------    CONTAINER     ------------------ */

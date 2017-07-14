@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
 
 /* -----------------    COMPONENT     ------------------ */
 class addNewStudent extends Component {
@@ -8,8 +7,7 @@ class addNewStudent extends Component {
     this.state = {
       name: '',
       email: '',
-      campusId: '1' //make this a select/option
-      // campusId: 0
+      campusId: '1'
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,17 +21,10 @@ class addNewStudent extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-    console.log('changename', event.target.name, 'value', event.target.value, 'state', this.state);
-    // this.props.allCampuses.forEach(campus => {
-    //   this.setState({
-    //     campusId: campus.id
-    //   });
-    // });
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    console.log('submit', event.target);
     this.props.createNewStudent(this.state);
     this.props.history.push('/students');
 
@@ -43,7 +34,7 @@ class addNewStudent extends Component {
   render() {
     return (
       <div>
-        <h2>Create a new Student</h2>
+        <h2>Create a new Inmate</h2>
         <form className="student-edit-form" onSubmit={this.handleSubmit}>
           <div className="form-group">
             <label>
@@ -88,7 +79,6 @@ class addNewStudent extends Component {
               </select>
             </label>
           </div>
-          {this.props && console.log(this.props)}
 
           <input className="btn btn-success" type="submit" />
         </form>

@@ -26,12 +26,12 @@ export default class Main extends Component {
           <div className="nav-bar text-center">
             <Link to={`/campuses`}>
               <button type="button" className="btn btn-default btn-group-lg nav-btn">
-                Campuses
+                Prisons
               </button>
             </Link>
             <Link to={`/students`}>
               <button type="button" className="btn btn-default btn-group-lg">
-                Students
+                Inmates
               </button>
             </Link>
           </div>
@@ -54,8 +54,3 @@ export default class Main extends Component {
     );
   }
 }
-
-//what is the diff between render and component in Route?
-//render can pass props and component can't
-
-/* -----------------    CONTAINER     ------------------ */

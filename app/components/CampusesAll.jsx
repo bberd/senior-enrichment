@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -24,7 +24,7 @@ export class CampusesAll extends Component {
               </div>
             </div>
           )}
-        <Link to={`/campuses/new`}>Add New Campus </Link>
+        <Link to={`/campuses/new`}>Add New Prison </Link>
       </div>
     );
   }

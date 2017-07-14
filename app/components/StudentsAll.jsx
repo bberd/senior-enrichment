@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Switch, Link } from 'react-router-dom';
-import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 /* -----------------    COMPONENT     ------------------ */
 
@@ -71,7 +70,7 @@ class StudentsAll extends Component {
           </tbody>
         </table>
 
-        <Link to={'/students/new'}>Add New Student</Link>
+        <Link to={'/students/new'}>$$$ Add New Inmate! $$$</Link>
       </div>
     );
   }
